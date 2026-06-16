@@ -19,21 +19,31 @@
             <a href="{{ url_for('identificacao') }}">Chaves</a>
             <a href="{{ url_for('sugestoes') }}">Sugestões</a>
         </nav>
-            
-        <div class="container-index">
-            <p class="titulo-pagina">Envie suas sugestões para melhorar o site!</p>
-<form class="formulario">
-    <label for="nome">Nome:</label><br>
-    <input type="text" id="nome"><br><br>
-
-    <label for="email">Email:</label><br>
-    <input type="email" id="email"><br><br>
-
-    <label for="mensagem">Sua sugestão:</label><br>
-    <textarea id="mensagem" rows="5"></textarea><br><br>
-
-    <button type="submit">Enviar Sugestão</button>
-</form>
-        </div>
-        
+     
     </header>
+
+    <main class="container-index">
+        <p class="titulo-pagina">Envie suas sugestões para melhorar o site!</p>
+        
+        <!-- CORREÇÃO: Adicionado action apontando para a rota de envio e o método POST -->
+        <form action="{{ url_for('enviar_sugestao') }}" method="POST" class="formulario">
+            
+            <!-- CORREÇÃO: Adicionado name="nome" -->
+            <label for="nome">Nome:</label><br>
+            <input type="text" id="nome" name="nome" required><br><br>
+
+            <!-- CORREÇÃO: Adicionado name="email" -->
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <!-- CORREÇÃO: Adicionado name="sugestao" (mude para o termo exato que seu app.py usa) -->
+            <label for="mensagem">Sua sugestão:</label><br>
+            <textarea id="mensagem" name="sugestao" rows="5" required></textarea><br><br>
+
+            <button type="submit">Enviar Sugestão</button>
+        </form>
+    </main>
+</div> <!-- Fecha container-index -->
+
+</body>
+</html>
