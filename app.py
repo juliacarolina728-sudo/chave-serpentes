@@ -44,13 +44,13 @@ def enviar_sugestao():
         email = request.form.get('email')
         sugestao = request.form.get('sugestao')
 
-        # Conecta e executa o comando no banco
         conn = get_db_connection()
         cur = conn.cursor()
         
+        # CORREÇÃO AQUI: Mudado de :nome para %s, e os dados passados em uma tupla ( )
         cur.execute(
-            "INSERT INTO sugestoes (nome, email, sugestao) VALUES (:nome, :email, :sugestao)",
-            {"nome": nome, "email": email, "sugestao": sugestao}
+            "INSERT INTO sugestoes (nome, email, sugestao) VALUES (%s, %s, %s)",
+            (nome, email, sugestao)
         )
         
         conn.commit()
@@ -58,6 +58,5 @@ def enviar_sugestao():
         conn.close()
         
         return "Sugestão enviada com sucesso! Verifique seu banco de dados."
-
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
