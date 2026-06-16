@@ -4,10 +4,13 @@ import pg8000
 
 app = Flask(__name__)
 
+# Pega o link do banco fornecido pelo Railway
 DATABASE_URL = os.environ.get('DATABASE_PUBLIC_URL') or os.environ.get('DATABASE_URL')
 
 def get_db_connection():
-    return pg8000.connect(dsn=DATABASE_URL)
+    # CORREÇÃO CRUCIAL: Trocado de .connect(dsn=...) para .from_url(...)
+    # Isso faz o pg8000 quebrar a URL do Railway em partes automaticamente
+    return pg8000.from_url(DATABASE_URL)
 
 @app.route('/')
 def index():
@@ -22,7 +25,7 @@ def sobre():
     return render_template('sobre.html')
 
 @app.route('/sugestoes')
-def sugestoes():  # <--- Corrigido aqui! Agora o url_for('sugestoes') vai funcionar perfeitamente
+def sugestoes():  
     return render_template('sugestoes.html')
 
 @app.route('/enviar', methods=['POST'])
@@ -32,11 +35,11 @@ def enviar_sugestao():
         email = request.form.get('email')
         sugestao = request.form.get('sugestao')
 
-        # REMOVA as linhas do try/except antigas por enquanto para forçar o erro a aparecer na tela:
+        # Mantendo sem o try/except para monitorarmos qualquer outro detalhe direto na tela
         conn = get_db_connection()
         cur = conn.cursor()
         
-        # Usando o formato de dicionário que o pg8000 precisa
+        # Inserção correta usando named parameters (formato dicionário)
         cur.execute(
             "INSERT INTO sugestoes (nome, email, sugestao) VALUES (:nome, :email, :sugestao)",
             {"nome": nome, "email": email, "sugestao": sugestao}
