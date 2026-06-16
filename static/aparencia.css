@@ -1,0 +1,338 @@
+/* ===== FONTES ===== */
+@import url('https://fonts.googleapis.com/css2?family=Saira+Stencil+One&family=Rye&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap');
+
+/* ===== REGRA GERAL ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background: #1c2a1a;
+    color: #f3f8c0;
+    min-height: 100vh;
+}
+
+/* ===== CONTÊINERES ===== */
+.container-index,
+.container-principal {
+    width: 95%;
+    max-width: 1100px;
+    margin: 40px auto;
+    background: #4a5c44;
+    min-height: 85vh;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+.container-principal {
+    padding-bottom: 50px;
+}
+
+/* ===== BANNER E NAV (COMPARTILHADO) ===== */
+header {
+    width: 100%;
+}
+
+.banner {
+    height: 200px;
+    background-image: url("Green_Snake-Animal_World_Series_Wallpaper_1366x768.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 40px;
+}
+
+.search {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.banner input {
+    width: 260px;
+    padding: 12px 44px 12px 20px;
+    border-radius: 30px;
+    border: none;
+    font-size: 15px;
+    color: #333;
+    outline: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.search::after {
+    content: "";
+    position: absolute;
+    right: 18px;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #555;
+    border-radius: 50%;
+    box-shadow: 6px 6px 0 -4px #555;
+    transform: rotate(-45deg);
+    pointer-events: none;
+}
+
+nav {
+    display: flex;
+    justify-content: flex-end;
+    gap: 14px;
+    padding: 22px 40px;
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    border: 1.5px solid #ffffff;
+    padding: 8px 22px;
+    border-radius: 10px;
+    font-size: 15px;
+    transition: background 0.2s, color 0.2s;
+}
+
+nav a:hover {
+    background: #ffffff;
+    color: #2e3d2a;
+}
+
+/* ===== HERO (INDEX) ===== */
+.hero {
+    margin: 0 40px 40px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-image: url("medium.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.overlay {
+    width: 100%;
+    background: linear-gradient(90deg, rgba(20, 30, 18, 0.85) 0%, rgba(20, 30, 18, 0.35) 100%);
+    padding: 50px;
+    min-height: 360px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero h1 {
+    font-family: 'Saira Stencil One', sans-serif;
+    font-size: 48px;
+    line-height: 1.15;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.hero h1:first-child {
+    color: #f3f1e7;
+}
+
+.hero h1:nth-child(2),
+.hero h1:nth-child(3) {
+    color: #6fc04e;
+}
+
+.hero p {
+    max-width: 360px;
+    margin: 22px 0 30px;
+    font-style: italic;
+    font-weight: 600;
+    color: #d7dbcf;
+    line-height: 1.5;
+}
+
+.hero button {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #4fc34f;
+    color: #1c3a17;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.hero button::before {
+    content: "\2713";
+    font-weight: 700;
+}
+
+.hero button:hover {
+    background: #43b043;
+    transform: translateY(-2px);
+}
+
+/* ===== CARD (SOBRE) ===== */
+.card {
+    position: relative;
+    margin: 0 40px 40px;
+    padding: 60px 50px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    overflow: hidden;
+    text-align: center;
+    background-image: linear-gradient(rgba(28, 42, 26, 0.82), rgba(28, 42, 26, 0.82)), url("img/fundo_iguana.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.card h1 {
+    font-family: 'Rye', serif;
+    font-size: 40px;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+.card p {
+    max-width: 620px;
+    margin: 0 auto 18px;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.card p:last-child {
+    margin-bottom: 0;
+}
+
+/* ===== IDENTIFICAÇÃO ===== */
+.titulo-pagina {
+    background: #1d3a1c;
+    margin: 25px 40px 0;
+    padding: 16px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.conteudo {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    flex-wrap: wrap;
+}
+
+.morfologia {
+    background: #5a6e52;
+    border-radius: 16px;
+    padding: 35px 40px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+#titulo-morfologia {
+    text-align: center;
+    font-weight: 500;
+    font-size: 26px;
+    margin-bottom: 28px;
+    color: #e7eadf;
+}
+
+.opcao {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 6px 0;
+}
+
+.opcao input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    accent-color: #6c4fd4;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.opcao label {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    flex: 1;
+    line-height: 1.4;
+}
+
+#divisor {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    margin: 16px 0;
+}
+
+.resultado {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 28px;
+    font-size: 16px;
+}
+
+.resultado button {
+    background: #e23b3b;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.resultado button:hover {
+    background: #c92f2f;
+}
+
+.imagens {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+}
+
+.imagens img {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ffffff;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 34px; }
+    nav { flex-wrap: wrap; }
+    .banner input { width: 180px; }
+    .conteudo { flex-direction: column; }
+}
+.formulario{
+    width: 60%;
+    margin: 40px auto;
+    padding: 20px;
+    text-align: left;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.formulario input,
+.formulario textarea{
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.formulario button{
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #e4cb3c;
+}

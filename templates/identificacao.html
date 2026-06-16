@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identificação</title>
+    <link rel="stylesheet" href="aparencia.css">
+</head>
+<body>
+
+<div class="container-principal">
+
+    <header>
+        <div class="banner"></div>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="sobre.html">Sobre</a>
+            <a href="identificacao.html">Chaves</a>
+             <a href="sugestoes.html">Sugestões</a>
+        </nav>
+    </header>
+
+    <section class="identificacao">
+
+        <h1 class="titulo-pagina">Serpentes</h1>
+
+        <div class="conteudo">
+
+            <div class="morfologia" id="bloco-perguntas">
+                
+                <h2 id="titulo-morfologia">Carregando...</h2>
+
+                <div id="container-opcoes">
+                    </div>
+
+                <div class="resultado" id="area-resultado" style="display: none;">
+                    <p id="texto-resultado">Resultado: </p>
+                    <button onclick="reiniciarChave()" style="margin-top: 15px; padding: 8px 15px; cursor: pointer;">
+                        Reiniciar Identificação
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="imagens" id="bloco-imagens">
+                </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+<script>
+// ==========================================
+// BANCO DE DADOS DA CHAVE (6 A 7 PASSOS)
+// ==========================================
+const bancoChave = {
+    "1": {
+        titulo: "Morfologia 1 - Extremidade da Cauda",
+        opcoes: [
+            { texto: "Possui Guizo na ponta da cauda", tipo: "resultado", destino: "Crotalus (cascavel)", img: "Cauda-cascavel.webp" },
+            { texto: "Não possui Guizo", tipo: "passo", destino: "2", img: "cauda-sem-guizo.jpg" }
+        ]
+    },
+    "2": {
+        titulo: "Morfologia 2 - Fosseta Loreal",
+        opcoes: [
+            { texto: "Possui fosseta loreal (orifício entre o olho e a narina)", tipo: "passo", destino: "3", img: "com-fosseta.jpg" },
+            { texto: "Não possui fosseta loreal", tipo: "passo", destino: "4", img: "sem-fosseta.jpg" }
+        ]
+    },
+    "3": {
+        titulo: "Morfologia 3 - Escamas da Cauda (Com Fosseta)",
+        opcoes: [
+            { texto: "Final da cauda com escamas eriçadas", tipo: "resultado", destino: "Lachesis muta (Surucucu-pico-de-jaca)", img: "cauda-ericada.jpg" },
+            { texto: "Final da cauda com escamas normais", tipo: "passo", destino: "5", img: "cauda-sem-guizo.jpg" }
+        ]
+    },
+    "4": {
+        titulo: "Morfologia 4 - Padrão de Colorido (Sem Fosseta)",
+        opcoes: [
+            { texto: "Anéis vermelhos, pretos e brancos contornando o corpo", tipo: "passo", destino: "8", img: "coral.jpg" },
+            { texto: "Outros padrões de cores ou cor uniforme", tipo: "passo", destino: "6", img: "jiboya.jpg" }
+        ]
+    },
+    "5": {
+        titulo: "Morfologia 5 - Subdivisão de Bothrops",
+        opcoes: [
+            { texto: "Desenhos em formato de V invertido ou losangos irregulares, possui uma linha escura que passa transversalmente pelo olho", tipo: "resultado", destino: "Bothrops jararaca (Jararaca)", img: "manchas-jararaca.jpg" },
+            { texto: "M Manchas escuras bem desenhadas nas laterais, com formato de ferradura, gancho ou desenho que lembra um telefone.Apresenta um desenho claro no topo da cabeça que se assemelha a uma cruz  ", tipo: "resultado", destino: "Bothrops alternatus (Urutu-cruzeiro)", img: "manchas-urutu.jpg" }
+        ]
+    },
+    "6": {
+        titulo: "Morfologia 6 - Formato da Pupila",
+        opcoes: [
+            { texto: "Pupila vertical (olho de gato)", tipo: "passo", destino: "7", img: "hortulanus.jpg" },
+            { texto: "Pupila redonda", tipo: "resultado", destino: "Colubrideos", img: "pupila-redonda.jpg" }
+        ]
+    },
+    "7": {
+        titulo: "Morfologia 7 - ",
+        opcoes: [
+            { texto: "Cabeça muito mais larga que o pescoço estreito; presença de fossetas labiais profundas na lateral da boca", tipo: "resultado", destino: "Corallus hortulanus (Suaçubóia)", img: "hortulanus.jpg" },
+            { texto: "Cabeça alongada, pouco destacada do pescoço; fossetas labiais ausentes ou muito difíceis de ver a olho nu", tipo: "passo", destino: "9", img: "jiboya.jpg" }
+        ]
+        },
+    "8": {
+        titulo: "Morfologia 8 - Olhos",
+        opcoes: [
+            { texto: "Olhos muito pequenos e sem pupilas", tipo: "resultado", destino: "Micrurus (Coral-verdadeira)", img: "micrurus.jpg" },
+            { texto: "Olhos grandes com pupilas aparentes e coloridas", tipo: "resultado", destino: "Oxyrhopus (Falsa coral)", img: "oxyrhopus.jpg" }
+            ,{ texto: "Olhos grandes com pupilas aparentes não coloridas", tipo: "resultado", destino: "Erythrolamprus (Falsa coral)", img: "erythrolamprus.jpg" }
+        ]    
+    },
+       "9": {
+        titulo: "Morfologia 9 - Corpo",
+        opcoes: [
+            { texto: " Corpo com coloração de fundo predominantemente cinzenta ou amarelada; padrão dorsal com manchas escuras em formato de sela (ampulheta); iridescência moderada", tipo: "resultado", destino: "Boa constrictor amarali (Jibóia comum)", img: "boa.jpg" },
+            { texto: "Corpo com coloração de fundo avermelhada ou castanha; padrão dorsal com anéis ou ocelos escuros (manchas redondas); iridescência extremamente acentuada, refletindo cores do arco-íris sob a luz", tipo: "resultado", destino: "Epicrates crassus (Jiboia Arco Irís)", img: "epicrates.jpg" }
+            
+        ]    
+    }
+    
+};
+
+// ==========================================
+// MOTOR DE RENDERIZAÇÃO DA CHAVE
+// ==========================================
+function carregarPasso(idPasso) {
+    const dados = bancoChave[idPasso];
+
+    // Atualiza o título do bloco
+    document.getElementById("titulo-morfologia").textContent = dados.titulo;
+
+    const containerOpcoes = document.getElementById("container-opcoes");
+    const blocoImagens = document.getElementById("bloco-imagens");
+
+    // Limpa os conteúdos do passo anterior
+    containerOpcoes.innerHTML = "";
+    blocoImagens.innerHTML = "";
+
+    // Reconstrói as opções mantendo estritamente a sua estrutura CSS original
+    dados.opcoes.forEach((opcao, index) => {
+        const idUnico = `op-${idPasso}-${index}`;
+
+        // Cria a <div class="opcao">
+        const divOpcao = document.createElement("div");
+        divOpcao.className = "opcao";
+
+        // Cria o <input type="radio"> (Radio impede nativamente seleções duplas)
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.id = idUnico;
+        input.name = "escolha-morfologia";
+
+        // Evento ao clicar na bolinha
+        input.onchange = () => {
+            if (opcao.tipo === "resultado") {
+                exibirResultado(opcao.destino);
+            } else {
+                carregarPasso(opcao.destino);
+            }
+        };
+
+        // Cria o <label>
+        const label = document.createElement("label");
+        label.htmlFor = idUnico;
+        label.textContent = opcao.texto;
+
+        // Monta a árvore do HTML
+        divOpcao.appendChild(input);
+        divOpcao.appendChild(label);
+        containerOpcoes.appendChild(divOpcao);
+
+        // Adiciona a linha divisória <hr>, exceto na última opção
+        if (index < dados.opcoes.length - 1) {
+            const hr = document.createElement("hr");
+            hr.id = "divisor";
+            containerOpcoes.appendChild(hr);
+        }
+
+        // Monta e renderiza a imagem correspondente à opção na área lateral
+        const img = document.createElement("img");
+        img.src = opcao.img;
+        img.alt = opcao.texto;
+        img.id = `img-${idUnico}`;
+        blocoImagens.appendChild(img);
+    });
+}
+
+function exibirResultado(resultadoFinal) {
+    // Mantém o título, mas limpa as opções e imagens para dar espaço ao veredito
+    document.getElementById("container-opcoes").innerHTML = "";
+    document.getElementById("bloco-imagens").innerHTML = "";
+    
+    const areaResultado = document.getElementById("area-resultado");
+    const textoResultado = document.getElementById("texto-resultado");
+
+    textoResultado.textContent = "Resultado: " + resultadoFinal;
+    areaResultado.style.display = "block";
+}
+
+function reiniciarChave() {
+    // Oculta a área de resultados e recomeça da etapa 1
+    document.getElementById("area-resultado").style.display = "none";
+    carregarPasso("1");
+}
+
+// Inicia o fluxo automaticamente na Morfologia 1 ao carregar a página
+window.onload = () => {
+    carregarPasso("1");
+};
+</script>
+
+</body>
+</html>
