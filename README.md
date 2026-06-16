@@ -1,39 +1,65 @@
 # 🐍 Chave Serpentes
 
-O **Chave Serpentes** é uma aplicação web desenvolvida em Flask integrada a um banco de dados PostgreSQL. O objetivo principal do sistema é gerenciar dados e consultas taxonômicas ou de identificação de serpentes de forma rápida e segura.
-
-Este projeto foi totalmente dockerizado, permitindo que toda a infraestrutura (aplicação web e banco de dados) seja inicializada de forma automatizada com um único comando.
+O **Chave Serpentes** é uma aplicação web desenvolvida em Flask, integrada a um banco de dados PostgreSQL, focada na gestão de dados taxonômicos e identificação de serpentes de forma rápida, segura e educativa. O projeto visa auxiliar na identificação de espécies nativas do estado de São Paulo, promovendo a conscientização sobre a fauna local e a prevenção de acidentes.
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
-
-* **Backend:** Python 3.10 / Flask
-* **Servidor de Produção:** Gunicorn
-* **Banco de Dados:** PostgreSQL 15
-* **Orquestração de Contêineres:** Docker & Docker Compose
+- **Backend:** Python 3.10 / Flask
+- **Banco de Dados:** PostgreSQL 15
+- **Servidor:** Gunicorn (Produção)
+- **Infraestrutura:** Docker & Docker Compose
+- **Deploy:** Railway
 
 ---
 
-## 🚀 Como Rodar o Projeto (Guia do Usuário)
+## 🧠 Lógica de Identificação
+A aplicação utiliza um algoritmo baseado em **chaves dicotômicas**. O sistema conduz o usuário através de perguntas lógicas sobre características morfológicas, habitat e comportamento da serpente, filtrando as informações no banco de dados até chegar à espécie correta.
 
-Como o projeto está configurado com Docker, você não precisa instalar o Python ou o PostgreSQL manualmente na sua máquina. Basta ter o Docker instalado.
+---
 
-### 📋 Pré-requisitos
-* [Docker Desktop](https://www.docker.com/products/docker-desktop/) instalado e rodando.
+## 📂 Estrutura do Projeto
+A organização do código foi planejada para garantir escalabilidade e fácil manutenção:
 
-### 🔧 Passo a Passo para Execução
+- `/app`: Código principal da aplicação Flask.
+- `/static` & `/templates`: Assets e arquivos de front-end.
+- `Dockerfile`: Configuração do ambiente de execução.
+- `docker-compose.yml`: Orquestração entre a aplicação e o banco de dados.
 
-1. **Clone o repositório:**
-```bash
-   git clone [https://github.com/juliacarolina728-sudo/chave-serpentes.git]
+
+
+[Image of basic database schema architecture]
+
+
+---
+
+## 📊 Modelo de Dados
+Os dados estão estruturados no PostgreSQL com as seguintes entidades principais:
+- **Species**: Armazena o nome científico, características morfológicas, habitat e links de imagens.
+- **DichotomousKey**: Armazena as ramificações lógicas das perguntas de identificação.
+
+---
+
+## 🚀 Como Rodar o Projeto
+
+Como o projeto está totalmente containerizado, você não precisa instalar o Python ou o PostgreSQL manualmente.
+
+### Pré-requisitos
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) instalado.
+
+### Passo a Passo
+1. **Clonar o repositório:**
+   ```bash
+   git clone [https://github.com/juliacarolina728-sudo/chave-serpentes.git](https://github.com/juliacarolina728-sudo/chave-serpentes.git)
    cd chave-serpentes
-```
-2. Suba os contêineres com o Docker Compose:
-No terminal da raiz do projeto, execute o comando abaixo para construir as imagens e iniciar os serviços:
-
+Subir os serviços:
+No terminal da raiz do projeto, execute:
 ```
 docker compose up --build
 ```
- **Acesse o site:**  
-👉 https://chave-serpentes-production.up.railway.app
+O projeto está disponível online via Railway:  
+ https://chave-serpentes-production.up.railway.app
+ 
+ 👤 Autor
+ 
+Desenvolvido por Julia Carolina.
