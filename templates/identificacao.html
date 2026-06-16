@@ -52,9 +52,7 @@
 </div>
 
 <script>
-// ==========================================
-// BANCO DE DADOS DA CHAVE (6 A 7 PASSOS)
-// ==========================================
+
 const bancoChave = {
     "1": {
         titulo: "Morfologia 1 - Extremidade da Cauda",
@@ -182,7 +180,7 @@ function carregarPasso(idPasso) {
 
         // Monta e renderiza a imagem correspondente à opção na área lateral
         const img = document.createElement("img");
-        img.src = opcao.img;
+       img.src = "/static/" + opcao.img;
         img.alt = opcao.texto;
         img.id = `img-${idUnico}`;
         blocoImagens.appendChild(img);
