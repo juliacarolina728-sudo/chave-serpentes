@@ -1,16 +1,25 @@
 import os
 from flask import Flask, render_template, request, redirect
-import pg8000  
-from pg8000.dbapi import from_url
+import pg8000 
+from urllib.parse import urlparse  # Biblioteca nativa do Python para desmembrar URLs
+
 app = Flask(__name__)
 
 # Pega o link do banco fornecido pelo Railway
 DATABASE_URL = os.environ.get('DATABASE_PUBLIC_URL') or os.environ.get('DATABASE_URL')
 
 def get_db_connection():
-    # CORREÇÃO CRUCIAL: Trocado de .connect(dsn=...) para .from_url(...)
-    # Isso faz o pg8000 quebrar a URL do Railway em partes automaticamente
-    return pg8000.from_url(DATABASE_URL)
+    # Quebra a URL do banco em partes (usuario, senha, host, porta, banco)
+    url = urlparse(DATABASE_URL)
+    
+    # Conecta passando cada parâmetro no seu devido lugar de forma infalível
+    return pg8000.connect(
+        user=url.username,
+        password=url.password,
+        host=url.hostname,
+        port=url.port,
+        database=url.path[1:]  # O path vem como '/nome_do_banco', o [1:] remove a barra
+    )
 
 @app.route('/')
 def index():
@@ -35,11 +44,10 @@ def enviar_sugestao():
         email = request.form.get('email')
         sugestao = request.form.get('sugestao')
 
-        # Mantendo sem o try/except para monitorarmos qualquer outro detalhe direto na tela
+        # Conecta e executa o comando no banco
         conn = get_db_connection()
         cur = conn.cursor()
         
-        # Inserção correta usando named parameters (formato dicionário)
         cur.execute(
             "INSERT INTO sugestoes (nome, email, sugestao) VALUES (:nome, :email, :sugestao)",
             {"nome": nome, "email": email, "sugestao": sugestao}
