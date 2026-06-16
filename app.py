@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, request, redirect
 import pg8000  
-
+from pg8000.dbapi import from_url
 app = Flask(__name__)
 
 # Pega o link do banco fornecido pelo Railway
