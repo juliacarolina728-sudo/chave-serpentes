@@ -35,6 +35,5 @@ No terminal da raiz do projeto, execute o comando abaixo para construir as image
 ```
 docker compose up --build
 ```
-
-# 🐍 Acesse o site:
-chave-serpentes-production.up.railway.app
+ **Acesse o site:**  
+👉 https://chave-serpentes-production.up.railway.app
