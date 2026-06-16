@@ -60,6 +60,11 @@ docker compose up --build
 O projeto está disponível online via Railway:  
  https://chave-serpentes-production.up.railway.app
  
+ ### Demonstração
+ <img width="692" height="388" alt="teste site" src="https://github.com/user-attachments/assets/16e6a89d-da91-4ed9-a6e5-ec268c06f0cd" />
+
+ 
  👤 Autor
  
 Desenvolvido por Julia Carolina.
+
