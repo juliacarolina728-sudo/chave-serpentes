@@ -4,7 +4,6 @@ import psycopg2
 
 app = Flask(__name__)
 
-# O Railway vai preencher essa URL sozinho quando o site estiver lá
 DATABASE_URL = os.environ.get('DATABASE_PUBLIC_URL') or os.environ.get('DATABASE_URL')
 
 def get_db_connection():
