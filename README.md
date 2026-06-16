@@ -50,7 +50,8 @@ Como o projeto está totalmente containerizado, você não precisa instalar o Py
 ### Passo a Passo
 1. **Clonar o repositório:**
    ```bash
-   git clone [https://github.com/juliacarolina728-sudo/chave-serpentes.git](https://github.com/juliacarolina728-sudo/chave-serpentes.git)
+   git clone https://github.com/juliacarolina728-sudo/chave-serpentes.git
+   
    cd chave-serpentes
 Subir os serviços:
 No terminal da raiz do projeto, execute:
