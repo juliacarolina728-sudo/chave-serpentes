@@ -1,13 +1,14 @@
 import os
 from flask import Flask, render_template, request, redirect
-import psycopg2
+import pg8000  
 
 app = Flask(__name__)
 
 DATABASE_URL = os.environ.get('DATABASE_PUBLIC_URL') or os.environ.get('DATABASE_URL')
 
 def get_db_connection():
-    return psycopg2.connect(DATABASE_URL)
+  
+    return pg8000.connect(dsn=DATABASE_URL)
 
 @app.route('/')
 def index():
