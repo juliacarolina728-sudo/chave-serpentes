@@ -32,20 +32,21 @@ def enviar_sugestao():
         email = request.form.get('email')
         sugestao = request.form.get('sugestao')
 
-        try:
-            conn = get_db_connection()
-            cur = conn.cursor()
-            # Corrigido aqui: trocado %s por :1, :2, :3 para o pg8000 aceitar os dados
-            cur.execute(
-                "INSERT INTO sugestoes (nome, email, sugestao) VALUES (:1, :2, :3)",
-                (nome, email, sugestao)
-            )
-            conn.commit()
-            cur.close()
-            conn.close()
-            return "Sugestão enviada com sucesso!"
-        except Exception as e:
-            return f"Erro ao salvar no banco: {e}", 500
+        # REMOVA as linhas do try/except antigas por enquanto para forçar o erro a aparecer na tela:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        
+        # Usando o formato de dicionário que o pg8000 precisa
+        cur.execute(
+            "INSERT INTO sugestoes (nome, email, sugestao) VALUES (:nome, :email, :sugestao)",
+            {"nome": nome, "email": email, "sugestao": sugestao}
+        )
+        
+        conn.commit()
+        cur.close()
+        conn.close()
+        
+        return "Sugestão enviada com sucesso! Verifique seu banco de dados."
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
