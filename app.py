@@ -7,7 +7,6 @@ app = Flask(__name__)
 DATABASE_URL = os.environ.get('DATABASE_PUBLIC_URL') or os.environ.get('DATABASE_URL')
 
 def get_db_connection():
-  
     return pg8000.connect(dsn=DATABASE_URL)
 
 @app.route('/')
@@ -23,7 +22,7 @@ def sobre():
     return render_template('sobre.html')
 
 @app.route('/sugestoes')
-def database_page():
+def sugestoes():  # <--- Corrigido aqui! Agora o url_for('sugestoes') vai funcionar perfeitamente
     return render_template('sugestoes.html')
 
 @app.route('/enviar', methods=['POST'])
@@ -36,8 +35,9 @@ def enviar_sugestao():
         try:
             conn = get_db_connection()
             cur = conn.cursor()
+            # Corrigido aqui: trocado %s por :1, :2, :3 para o pg8000 aceitar os dados
             cur.execute(
-                "INSERT INTO sugestoes (nome, email, sugestao) VALUES (%s, %s, %s)",
+                "INSERT INTO sugestoes (nome, email, sugestao) VALUES (:1, :2, :3)",
                 (nome, email, sugestao)
             )
             conn.commit()
