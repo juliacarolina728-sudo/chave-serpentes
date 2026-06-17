@@ -10,6 +10,8 @@ services:
       - DB_USER=admin
       - DB_PASSWORD=suasenha
       - DB_NAME=chave_serpentes
+    # O comando abaixo força o gunicorn a esperar mais tempo se o Codespaces travar a requisição
+    command: gunicorn --bind 0.0.0.0:8080 --timeout 120 seu_projeto.wsgi:application
     depends_on:
       - db
 
@@ -19,10 +21,6 @@ services:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=suasenha
       - POSTGRES_DB=chave_serpentes
-    ports:
-      - "5432:5432"
+    # REMOVEMOS as portas daqui para o Codespaces não tentar "ler" o banco de dados como site
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
-volumes:
-  postgres_data:
